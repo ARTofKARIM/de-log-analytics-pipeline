@@ -1,0 +1,12 @@
+parser:
+  log_format: "apache_combined"
+  patterns:
+    apache_combined: '(?P<ip>\S+) \S+ \S+ \[(?P<timestamp>[^\]]+)\] "(?P<method>\S+) (?P<path>\S+) \S+" (?P<status>\d+) (?P<size>\S+)'
+    json: "json"
+    syslog: '(?P<timestamp>\w+ \d+ \S+) (?P<host>\S+) (?P<process>\S+): (?P<message>.*)'
+pipeline:
+  batch_size: 10000
+  output_format: "parquet"
+alerting:
+  error_rate_threshold: 0.05
+  latency_p99_threshold: 5000
